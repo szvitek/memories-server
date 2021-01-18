@@ -1,13 +1,20 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import { PORT, CONNECTION_URL } from './config.js';
+import morgan from 'morgan';
+import { PORT, CONNECTION_URL, NODE_ENV } from './config.js';
+import postRoutes from './routes/posts.js';
 
 const app = express();
 
+if (NODE_ENV === 'development') {
+	app.use(morgan('dev'));
+}
 app.use(express.json({ limit: '30mb', extended: true }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 app.use(cors());
+
+app.use('/posts', postRoutes);
 
 app.get('/', (req, res) => {
 	res.send('ok');
