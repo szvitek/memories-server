@@ -13,7 +13,7 @@ export const getPosts = async (req, res ) => {
 
 export const createPost = async (req, res ) => {
 	const post = req.body;
-	const newPost = new PostMessage(post);
+	const newPost = new PostMessage({ ...post, creator: req.userId });
 	try {
 		await newPost.save();
 		return res.json(newPost).status(201);
@@ -67,7 +67,7 @@ export const likePost = async (req, res) => {
 		post.likes.push(req.userId);
 	} else {
 		// dislike
-		post.likes = post.likes(id => id !== req.userId.toString());
+		post.likes = post.likes.filter(id => id !== req.userId.toString());
 	}
 
 	const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
