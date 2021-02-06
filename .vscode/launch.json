@@ -6,6 +6,7 @@
 	"configurations": [
 		{
 			"type": "node",
+			"runtimeVersion": "14.15.4",
 			"request": "launch",
 			"name": "Launch Program",
 			"outputCapture": "std",

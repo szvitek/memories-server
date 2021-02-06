@@ -33,7 +33,7 @@ export const signin = async (req, res ) => {
 
 export const signup = async (req, res ) => {
 	try {
-		const { email, password, confirmPassword, firtName, lastName } = req.body;
+		const { email, password, confirmPassword, firstName, lastName } = req.body;
 
 		// check if user exist
 		const existingUser = await User.findOne({ email });
@@ -53,7 +53,7 @@ export const signup = async (req, res ) => {
 		const newUser = await User.create({
 			email,
 			password: hashedPassword,
-			name: `${firtName} ${lastName}`
+			name: `${firstName} ${lastName}`
 		});
 		// generate token
 		// todo: should be a schema instance method
